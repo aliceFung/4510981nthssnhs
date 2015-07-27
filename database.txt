@@ -7,3 +7,74 @@ The league has 10 weight classes, 5 each for men and women, with a minimum weigh
 Design the data model for this client. Use any design tools you like. Save your model as text or a legible image file.
 
 
+entities: events: date, venue
+          venue: capacity, address
+          fights: order, fighter 1, fighter 2, winner
+          league: 10 weight classes
+          weight class: gender, min_w, max_w
+          fighter: weight class, name
+
+relationships:
+
+events to venue: many events: one venue
+          (1 event can only be placed at 1 venue)
+
+events to fights: 1 event : many fights
+                  (1 fight belongs to only 1 event, even if same fighters: different time, date, etc.)
+
+weight class to fighters: 1 weight class: many fighters
+                          (1 fighter : 1 weight class)
+
+
+TABLE 1: Fighter
+  name: string, 1-30 characters
+  weight_class ID: int
+  id: int
+  created_at: datetime
+  updated_at: datetime
+
+TABLE 2: weight_class
+  name: string, 1-15 characters
+  id: int
+  created_at: datetime
+  updated_at: datetime
+  min_weight: int
+  max_weight: int
+  gender: string, 1 character (ex: M, F, T, U, etc.)
+
+TABLE 3: event
+  id: int
+  event_date: datetime
+  created_at: datetime
+  updated_at: datetime
+  venue_id: int
+
+TABLE 4: fight
+  id: int
+  fighter_1_id: int
+  fighter_2_id: int
+  winner: int
+  created_at: datetime
+  updated_at: datetime
+
+TABLE 5: fight_list
+  id: int
+  created_at: datetime
+  updated_at: datetime
+  fight_order: int
+  event_id: int
+
+  TABLE 6: venue
+  id: int
+  capacity: int
+  location: string, 5-50 characters.
+  created_at: datetime
+  updated_at: datetime
+
+
+
+
+
+
+
+
