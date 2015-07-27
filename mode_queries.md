@@ -2,17 +2,45 @@ Run queries on the `tutorial.billboard_top_100_year_end` database on the [Mode A
 
 1. How many years did Mariah Carey have a song in the Top 10?
 
+SELECT artist, count(artist)
+FROM tutorial.billboard_top_100_year_end
+WHERE artist ILIKE '%mariah carey%' AND year_rank <=10
+GROUP BY artist
+
 
 2. A list of all Whitney Houston song titles that didn't rank higher than 20th, in chronological order.
 
+SELECT song_name, year_rank
+FROM tutorial.billboard_top_100_year_end
+WHERE artist ILIKE '%whitney houston%' AND year_rank <=20
 
 3. How many artists have finished a year with the number 1 song?
-
+SELECT DISTINCT COUNT(artist)
+FROM tutorial.billboard_top_100_year_end
+WHERE year_rank =1
 
 4. In which year did Ke$ha have the most charted hits, and how many did she have that year? (Just one query...)
 
+SELECT year, COUNT(year) as yr_hits
+FROM tutorial.billboard_top_100_year_end
+WHERE artist = 'Ke$ha'
+GROUP BY year
+ORDER BY yr_hits DESC
+LIMIT 1
 
 5. What is the highest chart position ever reached by Ke$ha's sometime collaborators, the strangely-named "3OH!3"?
 
+SELECT year_rank
+FROM tutorial.billboard_top_100_year_end
+WHERE "group" ILIKE '%3OH!3%'
+ORDER BY year_rank
+LIMIT 1
 
 6. A list of years that had a charted song containing the word "heaven" and a count of the number.
+
+SELECT DISTINCT count(song_name), year
+FROM tutorial.billboard_top_100_year_end
+WHERE song_name ILIKE '%heaven%'
+GROUP BY year
+
+note: sometimes song_name appears more than once if more than one artist
